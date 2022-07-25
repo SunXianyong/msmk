@@ -12,17 +12,20 @@ def create_app(config):
     app = Flask(__name__, instance_relative_config=True)
 
     app.config.from_object(config)
-
     db.init_app(app)
     Migrate(app, db)
 
     api = Api(app)
     api.register_blueprint(teachers_bp)
     api.register_blueprint(students_bp)
+    api.register_blueprint(courses_bp)
+    api.register_blueprint(robot_bp)
 
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
+    # socketio.init_app(app, cors_allowed_origins='*', logger=True, engineio_logger=True)
+    #
+    # return socketio, app
     return app

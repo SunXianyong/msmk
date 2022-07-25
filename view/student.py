@@ -1,26 +1,26 @@
 from flask import request, make_response
 from flask_smorest import Blueprint
 
-from models.model import db, Student, Teacher, student2teacher
+from models.model import db, Student, Teacher
 
 students_bp = Blueprint("student", __name__, url_prefix="/")
 
 
-@students_bp.before_request
-def login_status():
-    if request.cookies.get("student_id"):
-        ...
-    else:
-        ...
+# @students_bp.before_request
+# def login_status():
+#     if request.cookies.get("student_id"):
+#         ...
+#     else:
+#         ...
 
 
 @students_bp.route("student", methods=["post"])
 def login_stu():
     info = request.json
-    teachers = db.session.query(Student.id).filter_by(**info).one()
-    if teachers:
+    student = db.session.query(Student.id).filter_by(**info).one()
+    if student:
         resp = make_response("shi")
-        resp.set_cookie("student_id", str(teachers.id), max_age=36000)
+        resp.set_cookie("student_id", str(student.id), max_age=36000)
         return resp
     return {"code": 2000}
 
@@ -35,5 +35,4 @@ def attention2teacher():
         return "已经关注过"
     teacher.students.append(student)
     teacher.attention_num += 1
-    db.session.commit()
     return {"code": 200}
