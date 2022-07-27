@@ -25,7 +25,7 @@ def create_app(config):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-    # socketio.init_app(app, cors_allowed_origins='*', logger=True, engineio_logger=True)
-    #
-    # return socketio, app
-    return app
+    socketio.init_app(app, cors_allowed_origins='*', logger=True, engineio_logger=True)
+
+    return socketio, app
+    # return app

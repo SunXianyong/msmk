@@ -1,6 +1,6 @@
 from .course import courses_bp
-from .robot import robot_bp
-from .robot import socketio
+# from .robot_day2 import robot_bp, socketio
+from .robot_room import robot_bp, socketio
 from .student import students_bp
 from .teachers import teachers_bp
 

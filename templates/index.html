@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>SocketIO Demo</title>
-{#        <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>#}
-{#        <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>#}
+    {#        <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>#}
+    {#        <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>#}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
             integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
             crossorigin="anonymous"></script>
@@ -19,19 +19,27 @@
 <body>
 
 <h2>Demo of SocketIO</h2>
+<input id="inp" placeholder="请输入要发送的信息"/>
+<button onclick="postMessage()">发送</button>
 <div id="t"></div>
 <script>
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/robot_chat');
     $(document).ready(function () {
-        namespace = '/dcenter';
-        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
-        socket.on('connect_daming', function (res) {
-            var t = res.data;
+        socket.on('message', function (res) {
+            var t = res;
             if (t) {
                 $("#t").append(t).append('<br/>');
             }
 
         });
+
+
     });
+
+    function postMessage() {
+        socket.emit("qwer", "{ message: inp.value, time: new Date() }");
+    }
+
 </script>
 </body>
 </html>
