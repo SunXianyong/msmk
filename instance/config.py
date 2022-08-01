@@ -1,6 +1,3 @@
-import os
-
-
 class DefaultConfig:
     SECRET_KEY = "asdf"
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:123456@127.0.0.1:3306/msmk"
@@ -15,3 +12,11 @@ class DefaultConfig:
     OPENAPI_VERSION = '3.0.2'
     API_VERSION = 'v1'
     API_TITLE = 'JKB'
+
+    # cache
+    CACHE_TYPE = "redis"
+    CACHE_DEFAULT_TIMEOUT = 300
+    CACHE_REDIS_HOST = "localhost"
+    CACHE_REDIS_PORT = 6379
+    CACHE_REDIS_DB = 0
+    CACHE_REDIS_PASSWORD = None

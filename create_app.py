@@ -1,10 +1,11 @@
 import os
 
-from flask import Flask
+from flask import Flask,current_app
 from flask_migrate import Migrate
 from flask_smorest import Api
 
 from models.model import db
+from utils.cache import cache
 from view import *
 
 
@@ -14,6 +15,7 @@ def create_app(config):
     app.config.from_object(config)
     db.init_app(app)
     Migrate(app, db)
+    cache.init_app(app)
 
     api = Api(app)
     api.register_blueprint(teachers_bp)
@@ -28,4 +30,3 @@ def create_app(config):
     socketio.init_app(app, cors_allowed_origins='*', logger=True, engineio_logger=True)
 
     return socketio, app
-    # return app
