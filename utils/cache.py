@@ -16,15 +16,18 @@ def redis_cil():
     return current_app.extensions["cache"][cache]._read_client
 
 
-def redis_get(key: str):
-    cil = redis_cil()
-    return cil.get(key)
+def redis_sub(key: str):
+    cil: Redis = redis_cil()
+    cil.pubsub()
+    cil.pubsub_channels()
 
+    return cil.get(key)
 
 
 def redis_set(key: str, value: str):
     cil: Redis = redis_cil()
     cil.set(key, value)
+
 
 def redis_has(ket: str, value):
     ...

@@ -22,6 +22,9 @@ def create_app(config):
     api.register_blueprint(students_bp)
     api.register_blueprint(courses_bp)
     api.register_blueprint(robot_bp)
+    api.register_blueprint(exercise_bp)
+    api.register_blueprint(paper_bp)
+
 
     try:
         os.makedirs(app.instance_path)
